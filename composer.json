@@ -1,0 +1,29 @@
+{
+  "name": "zlavadna/partner-api-php",
+  "version": "1.0.0-dev",
+  "description": "ZlavaDna.sk partner API library",
+  "keywords": [
+    "zlavadna",
+    "slevadne",
+    "boomer",
+    "api"
+  ],
+  "homepage": "https://github.com/zlavadna/partner-api-php",
+  "support": {
+    "email": "vyvoj@dazzler.sk",
+    "issues": "https://github.com/zlavadna/partner-api-php/issues",
+    "source": "https://github.com/zlavadna/partner-api-php"
+  },
+  "autoload": {
+    "psr-4": {
+      "ZlavaDna\\": "lib/"
+    }
+  },
+  "require": {
+    "php": ">=5.3.3"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "2.*",
+    "phpunit/phpunit": "4.*"
+  }
+}
