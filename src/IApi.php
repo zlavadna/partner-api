@@ -2,58 +2,55 @@
 
 namespace ZlavaDna;
 
+use ZlavaDna\Transport\IResponse;
+
 interface IApi {
 
     /**
      * Checks state of a coupon.
      * If $secret is provided, checks if it's correct.
-     * @param string $partnerCode
      * @param string $code
      * @param string|null $secret
-     * @return mixed
+     * @return IResponse
      */
-    public function queryCoupon($partnerCode, $code, $secret = NULL);
+    public function queryCoupon($code, $secret = NULL);
 
     /**
      * Marks a coupon as consumed.
-     * @param string $partnerCode
      * @param string $code
      * @param string $secret
-     * @return mixed
+     * @return IResponse
      */
-    public function consumeCoupon($partnerCode, $code, $secret);
+    public function consumeCoupon($code, $secret);
 
     /**
      * Marks a coupon as not consumed.
-     * @param string $partnerCode
      * @param string $code
      * @param string $secret
-     * @return mixed
+     * @return IResponse
      */
-    public function unConsumeCoupon($partnerCode, $code, $secret);
+    public function unConsumeCoupon($code, $secret);
 
     /**
      * Marks a coupon as reserved.
-     * @param string $partnerCode
      * @param string $code
      * @return mixed
      */
-    public function reserveCoupon($partnerCode, $code);
+    public function reserveCoupon($code);
 
     /**
      * Marks a coupon as not reserved.
-     * @param string $partnerCode
      * @param string $code
-     * @return mixed
+     * @return IResponse
      */
-    public function unReserveCoupon($partnerCode, $code);
+    public function unReserveCoupon($code);
 
     /**
      * Checks partner's username and password.
      * Use only over https.
      * @param string $username
      * @param string $password
-     * @return mixed
+     * @return IResponse
      */
     public function verifyLoginData($username, $password);
 }

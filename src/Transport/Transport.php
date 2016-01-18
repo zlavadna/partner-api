@@ -6,10 +6,10 @@ use ZlavaDna\ApiException;
 
 /**
  * HTTP request.
- * Class Request
+ * Class Transport
  * @package Zlavadna\Transport
  */
-class Request implements IRequest {
+class Transport implements ITransport {
 
     const GET = 'GET';
     const POST = 'POST';
@@ -26,6 +26,16 @@ class Request implements IRequest {
     public function request($url, $data = array(), $method = 'GET', $options = array()) {
         if (!filter_var($url, FILTER_VALIDATE_URL)) {
             throw new ApiException('URL is not set or not in proper format.');
+        }
+
+        // check whether request is over https and if all necessary extensions are loaded
+        if (strpos($url, 'https://') === 0) {
+            if (!extension_loaded('openssl')) {
+                throw new ApiException('Openssl extension needs to be loaded for requests over https.');
+            }
+            if (!in_array('https', stream_get_wrappers())) {
+                throw new ApiException('HTTPS stream wrapper missing.');
+            }
         }
 
         $httpOptions = array();
@@ -46,6 +56,9 @@ class Request implements IRequest {
         if (!empty($options['timeout'])) {
             $httpOptions['timeout'] = $options['timeout'];
         }
+
+        // response content type
+        $httpOptions['header'] = 'Content-type: application/json';
 
         // response
         return new Response(file_get_contents($url, NULL, stream_context_create(array(

@@ -6,7 +6,7 @@ interface IResponse {
 
     /**
      * Returns data as a result of API call.
-     * @return []|null
+     * @return array|null
      */
     public function getData();
 

@@ -2,7 +2,7 @@
 
 namespace ZlavaDna\Transport;
 
-interface IRequest {
+interface ITransport {
 
     /**
      * Sends request to $url with $data.
