@@ -5,6 +5,12 @@ namespace ZlavaDna\Transport;
 interface IResponse {
 
     /**
+     * Parse response.
+     * @param string $data
+     */
+    public function setResponseData($data);
+
+    /**
      * Returns data as a result of API call.
      * @return array|null
      */

@@ -2,6 +2,8 @@
 
 namespace ZlavaDna\Transport;
 
+use ZlavaDna\ApiException;
+
 class Response implements IResponse {
 
     /** @var bool */
@@ -18,24 +20,37 @@ class Response implements IResponse {
 
     /**
      * Response constructor.
-     * @param $json
+     * @param string $json
+     * @throws ApiException
      */
-    public function __construct($json) {
+    public function setResponseData($json) {
         $json = json_decode($json, TRUE);
         if (!$json) {
             $this->result = FALSE;
             $this->errorCode = 0;
             $this->errorMessage = 'unknown error during request';
         } else {
+            if (!isset($json['result'])) {
+                throw new ApiException('JSON data have invalid structure!');
+            }
+            if (filter_var($json['result'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) === NULL) {
+                throw new ApiException('JSON data are invalid!');
+            }
             $this->result = $json['result'];
         }
         if (!empty($json['data'])) {
             $this->data = $json['data'];
         }
         if (!empty($json['error']['code'])) {
-            $this->errorCode = $json['error']['code'];
+            if (!is_numeric($json['error']['code'])) {
+                throw new ApiException('JSON data are invalid!');
+            }
+            $this->errorCode = (int)$json['error']['code'];
         }
         if (!empty($json['error']['message'])) {
+            if (!is_string($json['error']['message'])) {
+                throw new ApiException('JSON data are invalid!');
+            }
             $this->errorMessage = $json['error']['message'];
         }
     }

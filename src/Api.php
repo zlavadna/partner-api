@@ -6,7 +6,6 @@ use ZlavaDna\Transport\IResponse;
 use ZlavaDna\Transport\ITransport;
 
 /**
- * todo: validate arguments of all methods
  * Class Api
  * @package ZlavaDna
  */
@@ -44,8 +43,12 @@ class Api implements IApi {
      * @param string $code
      * @param string|null $secret
      * @return IResponse
+     * @throws ApiException
      */
     public function queryCoupon($code, $secret = NULL) {
+        if (empty($code)) {
+            throw new ApiException('Coupon code is mandatory!');
+        }
 
         return $this->request(array(
             'action' => 'queryCoupon',
@@ -59,8 +62,15 @@ class Api implements IApi {
      * @param string $code
      * @param string $secret
      * @return IResponse
+     * @throws ApiException
      */
     public function consumeCoupon($code, $secret) {
+        if (empty($code)) {
+            throw new ApiException('Coupon code is mandatory!');
+        }
+        if (empty($secret)) {
+            throw new ApiException('Coupon password is mandatory!');
+        }
 
         return $this->request(array(
             'action' => 'consumeCoupon',
@@ -74,8 +84,15 @@ class Api implements IApi {
      * @param string $code
      * @param string $secret
      * @return IResponse
+     * @throws ApiException
      */
     public function unConsumeCoupon($code, $secret) {
+        if (empty($code)) {
+            throw new ApiException('Coupon code is mandatory!');
+        }
+        if (empty($secret)) {
+            throw new ApiException('Coupon password is mandatory!');
+        }
 
         return $this->request(array(
             'action' => 'unconsumeCoupon',
@@ -88,8 +105,12 @@ class Api implements IApi {
      * Marks a coupon as reserved.
      * @param string $code
      * @return IResponse
+     * @throws ApiException
      */
     public function reserveCoupon($code) {
+        if (empty($code)) {
+            throw new ApiException('Coupon code is mandatory!');
+        }
 
         return $this->request(array(
             'action' => 'reserveCoupon',
@@ -101,8 +122,12 @@ class Api implements IApi {
      * Marks a coupon as not reserved.
      * @param string $code
      * @return IResponse
+     * @throws ApiException
      */
     public function unReserveCoupon($code) {
+        if (empty($code)) {
+            throw new ApiException('Coupon code is mandatory!');
+        }
 
         return $this->request(array(
             'action' => 'unReserveCoupon',
@@ -112,12 +137,23 @@ class Api implements IApi {
 
     /**
      * Checks partner's username and password.
-     * Use only over https.
+     * Use only over https!
      * @param string $username
      * @param string $password
      * @return IResponse
+     * @throws ApiException
      */
     public function verifyLoginData($username, $password) {
+        if (empty($username)) {
+            throw new ApiException('Username is mandatory!');
+        }
+        if (empty($password)) {
+            throw new ApiException('Password is mandatory!');
+        }
+
+        if (strpos($this->projectUrl, 'https://') === FALSE) {
+            throw new ApiException('Use only over HTTPS!');
+        }
 
         return $this->request(array(
             'action' => 'verifyLoginData',

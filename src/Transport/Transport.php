@@ -14,6 +14,17 @@ class Transport implements ITransport {
     const GET = 'GET';
     const POST = 'POST';
 
+    /** @var IResponse */
+    private $response = NULL;
+
+    /**
+     * Transport constructor.
+     * @param IResponse $response
+     */
+    public function __construct(IResponse $response) {
+        $this->response = $response;
+    }
+
     /**
      * Sends request to $url with $data.
      * @param string $url
@@ -30,12 +41,7 @@ class Transport implements ITransport {
 
         // check whether request is over https and if all necessary extensions are loaded
         if (strpos($url, 'https://') === 0) {
-            if (!extension_loaded('openssl')) {
-                throw new ApiException('Openssl extension needs to be loaded for requests over https.');
-            }
-            if (!in_array('https', stream_get_wrappers())) {
-                throw new ApiException('HTTPS stream wrapper missing.');
-            }
+           $this->checkHttps();
         }
 
         $httpOptions = array();
@@ -61,8 +67,33 @@ class Transport implements ITransport {
         $httpOptions['header'] = 'Content-type: application/json';
 
         // response
-        return new Response(file_get_contents($url, NULL, stream_context_create(array(
+        return $this->doRequest($url, $httpOptions);
+    }
+
+    /**
+     * Actually makes request and returns
+     * @param string $url
+     * @param array $httpOptions
+     * @return IResponse
+     */
+    protected function doRequest($url, $httpOptions) {
+        $this->response->setResponseData(file_get_contents($url, NULL, stream_context_create(array(
             'http' => $httpOptions,
         ), array())));
+
+        return $this->response;
+    }
+
+    /**
+     * Checks if all necessary extensions are loaded for requesting over HTTPS.
+     * @throws ApiException
+     */
+    protected function checkHttps() {
+        if (!extension_loaded('openssl')) {
+            throw new ApiException('Openssl extension needs to be loaded for requests over https.');
+        }
+        if (!in_array('https', stream_get_wrappers())) {
+            throw new ApiException('HTTPS stream wrapper missing.');
+        }
     }
 }

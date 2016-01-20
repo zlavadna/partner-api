@@ -46,7 +46,7 @@ You can use one of URL constants:
 use ZlavaDna\Api;
 use ZlavaDna\Transport\Transport;
 
-$api = new Api(Api::ZLAVADNA_URL, '6c1e55ec7c43dc51a37472ddcbd756fb', new Transport());
+$api = new Api(Api::ZLAVADNA_URL, '6c1e55ec7c43dc51a37472ddcbd756fb', new Transport(new Response()));
 ```
 
 Second parameter is your partner code and third is class, which actually sends the requests.
