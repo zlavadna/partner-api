@@ -45,12 +45,4 @@ interface IApi {
      */
     public function unReserveCoupon($code);
 
-    /**
-     * Checks partner's username and password.
-     * Use only over https.
-     * @param string $username
-     * @param string $password
-     * @return IResponse
-     */
-    public function verifyLoginData($username, $password);
 }

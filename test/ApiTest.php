@@ -155,41 +155,4 @@ class ApiTest extends \PHPUnit_Framework_TestCase {
         $api->unReserveCoupon('123456789');
     }
 
-    /**
-     * @expectedException \ZlavaDna\ApiException
-     */
-    public function testVerifyLoginDataWithoutUsername() {
-        $api = new Api('http://example.com', '6f1ed002ab5595859014ebf0951522d9', $this->getTransportMock());
-        $api->verifyLoginData('', '');
-    }
-
-    /**
-     * @expectedException \ZlavaDna\ApiException
-     */
-    public function testVerifyLoginDataWithoutPassword() {
-        $api = new Api('http://example.com', '6f1ed002ab5595859014ebf0951522d9', $this->getTransportMock());
-        $api->verifyLoginData('username', '');
-    }
-
-    /**
-     * @expectedException \ZlavaDna\ApiException
-     */
-    public function testVerifyLoginDataNotOverHttps() {
-        $api = new Api('http://example.com', '6f1ed002ab5595859014ebf0951522d9', $this->getTransportMock());
-        $api->verifyLoginData('username', 'password');
-    }
-
-    public function testVerifyLoginData() {
-        $transport = $this->getTransportMock();
-        $transport
-            ->expects($this->once())
-            ->method('request')
-            ->with($this->equalTo('https://example.com'), $this->callback(function($data) {
-
-                return $data['partnerCode'] === '6f1ed002ab5595859014ebf0951522d9' && $data['action'] === 'verifyLoginData' && $data['partnerUsername'] === 'username' && $data['partnerPassword'] === 'password';
-            }));
-        $api = new Api('https://example.com', '6f1ed002ab5595859014ebf0951522d9', $transport);
-        $api->verifyLoginData('username', 'password');
-    }
-
 }

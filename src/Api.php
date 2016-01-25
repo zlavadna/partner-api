@@ -136,33 +136,6 @@ class Api implements IApi {
     }
 
     /**
-     * Checks partner's username and password.
-     * Use only over https!
-     * @param string $username
-     * @param string $password
-     * @return IResponse
-     * @throws ApiException
-     */
-    public function verifyLoginData($username, $password) {
-        if (empty($username)) {
-            throw new ApiException('Username is mandatory!');
-        }
-        if (empty($password)) {
-            throw new ApiException('Password is mandatory!');
-        }
-
-        if (strpos($this->projectUrl, 'https://') === FALSE) {
-            throw new ApiException('Use only over HTTPS!');
-        }
-
-        return $this->request(array(
-            'action' => 'verifyLoginData',
-            'partnerUsername' => $username,
-            'partnerPassword' => $password,
-        ));
-    }
-
-    /**
      * Makes request to API.
      * @param $data
      * @return IResponse
