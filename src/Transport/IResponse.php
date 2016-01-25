@@ -17,7 +17,7 @@ interface IResponse {
     public function getData();
 
     /**
-     * Finds out if API call successful.
+     * Finds out if API call is successful.
      * @return bool
      */
     public function getResult();

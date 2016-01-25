@@ -29,7 +29,7 @@ class Transport implements ITransport {
      * Sends request to $url with $data.
      * @param string $url
      * @param array $data
-     * @param string $method Determines type of post (GET, POST, etc).
+     * @param string $method Determines type of post (GET, POST).
      * @param array $options
      * @return IResponse
      * @throws ApiException
