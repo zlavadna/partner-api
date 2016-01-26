@@ -51,6 +51,8 @@ use ZlavaDna\Api;
 use ZlavaDna\Transport\Transport;
 use ZlavaDna\Transport\Response;
 
+require __DIR__ . '/vendor/autoload.php';
+
 $api = new Api(Api::ZLAVADNA_URL, '6c1e55ec7c43dc51a37472ddcbd756fb', new Transport(new Response()));
 ```
 

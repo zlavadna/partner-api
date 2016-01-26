@@ -1,6 +1,6 @@
 {
   "name": "zlavadna/partner-api-php",
-  "version": "1.0.0-dev",
+  "version": "1.0.0",
   "description": "ZlavaDna.sk partner API library",
   "keywords": [
     "zlavadna",
