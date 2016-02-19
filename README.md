@@ -212,7 +212,7 @@ Response array:
 * variantName - array with variant information about coupon
 * partnerAddressName - partner address
 * price - price of coupon/deal item
-* reservation - information about reservation/shippment
+* reservation - information about reservation/shipment
 
 ####getErrorCode()
 If an error occurs, it will return the error code. Otherwise it returns 0.
