@@ -25,20 +25,20 @@ You can download source code directly from GitHub or you can install the library
 To use this Api, you need your unique "partner code".
 **Your partner code is different for each project.**
 Coupons and partner code for testing purposes in this documentation are for ZlavaDna.sk project.
-Coupons and partner code for Boomer.sk and SlevaDne.cz are at the bootom of this documentation.
+Coupons and partner code for Boomer.sk and SlevaDne.cz are at the botom of this documentation.
 
 ###Basic usage:
 1. Check validity and state of the coupon with **queryCoupon** action and if it returns True, parse response data to validate dealID/dealItemID/variant\[id\] (what is applicable for your offer)
-2. (Optional) if you have reservations or ship goods, you can call **reserveCoupon** action to mark coupon as reserverd or shipped
+2. (Optional) if you have reservations or you ship goods, you can call **reserveCoupon** action to mark coupon as reserved or shipped
 3. If the coupon is **valid** and is for **your current deal/dealItem/variant** (check dealID/dealItemID/variant\[id\] in response data) you call **consumeCoupon** action and check it's response
 
-Test partner code (ZlavaDna.sk):
+**Test partner code (ZlavaDna.sk):**
 
 ```
 6c1e55ec7c43dc51a37472ddcbd756fb
 ```
 
-Test coupons (ZlavaDna.sk):
+**Test coupons (ZlavaDna.sk):**
 
 | Code          | Secret   |
 | ------------- | -------- |
@@ -99,8 +99,8 @@ Api actions list and how to use them:
 
 ###queryCoupon
 This action checks if given coupon data are correct and if this coupon exists in our Project. When called only with
-the first parameter (code), it checks wheter a coupon with this code exists in our Project. When called with
-both parameters (code and secret) it also checks wheter the pair code-secret is right and this coupon exists in our Project.
+the first parameter (code), it checks whether a coupon with this code exists in our Project. When called with
+both parameters (code and secret) it also checks whether the pair code-secret is right and this coupon exists in our Project.
 If the coupon is valid (result is True), you should check DealID/DealItemID/Variant\[id\] (based on your deal presentation
 on our Project) in response to confirm that this coupon is for your current deal, dealItem or variant. **This is important
 especially when you are selling more than one deal at the same time, or your deal has more dealitems/variants.** See image
@@ -194,11 +194,11 @@ Response structure (array):
   ]
 ```
 Description:
-Deal is presentation of your offer. Deal contains deal items which our customers can buy. They can have different prices,
+Deal is presentation of your offer. Deal contains deal items that our customers can buy. They can have different prices,
 titles, valid times and variants.
-Variants of deal items defines more specifically information about deal items. For example variants can be
+Variants of deal items define more specifically information about deal items. For example variants can be
 different color or size of your product (deal item).
-You receive dealID, dealItemIDs and VariantIDs (if applicable ) from our merchant before the beginning of your offer on
+You receive dealID, dealItemIDs and VariantIDs (if applicable) from our merchant before the beginning of your offer on
 our projects. Each project has different IDs for the same offer.
 
 ![alt text](https://raw.githubusercontent.com/zlavadna/partner-api-php/master/api_readme.png "Deal/dealItem/variant explanation")
@@ -233,13 +233,13 @@ Table of error codes:
     7 => 'wrong action or no action specified',
     8 => 'wrong or missing parameters',
     9 => 'partner and coupon mismatch, wrong coupon code or partner code',
-    11 => 'coupon consuming went wrong',
-    13 => 'coupon unconsuming went wrong',
+    11 => 'coupon consume went wrong',
+    13 => 'coupon unconsume went wrong',
     14 => 'invalid login credentials',
     15 => 'secure communication is needed',
-    16 => 'coupon reservation went wrong',
+    16 => 'coupon reserve went wrong',
     17 => 'coupon already reserved',
-    18 => 'coupon unreservation went wrong',
+    18 => 'coupon unreserve went wrong',
     19 => 'coupon is not reserved'
 ]
 ```
