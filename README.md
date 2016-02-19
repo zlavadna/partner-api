@@ -69,10 +69,5 @@ When you will be done with Api instance, you will be able to call Api actions:
 ```
 $api->queryCoupon('428366425503', 'FKRGKNQX');
 ```
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
 
 All of the examples use the test data so that they are working.
