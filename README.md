@@ -75,11 +75,10 @@ $api = new Api(Api::ZLAVADNA_URL, '6c1e55ec7c43dc51a37472ddcbd756fb', new Transp
 ```
 
 By default, requests are send over HTTPS. For using HTTPS, you need openssl extension to be loaded.
-If you want to use HTTP instead, just put URL starting with "http://" instead of "https://" to Api constructor,
-or change the URL constants.
+**HTTP is not supported.**
 
 ```
-$api = new Api('http://www.zlavadna.sk/api/index.php', ...
+$api = new Api('https://www.zlavadna.sk/api/index.php', ...
 ```
 After initializing the Api instance, you can call all Api actions.
 
