@@ -142,7 +142,7 @@ class Api implements IApi {
      */
     private function request($data) {
 
-        return $this->transport->request($this->projectUrl, array_merge(array(
+        return clone $this->transport->request($this->projectUrl, array_merge(array(
             'partnerCode' => $this->partnerCode,
         ), $data));
     }

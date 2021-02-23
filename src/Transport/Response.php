@@ -27,6 +27,7 @@ class Response implements IResponse {
         $json = json_decode($json, TRUE);
         if (!$json) {
             $this->result = FALSE;
+            $this->data = NULL;
             $this->errorCode = 0;
             $this->errorMessage = 'unknown error during request';
         } else {
@@ -37,21 +38,28 @@ class Response implements IResponse {
                 throw new ApiException('JSON data are invalid!');
             }
             $this->result = $json['result'];
-        }
-        if (!empty($json['data'])) {
-            $this->data = $json['data'];
-        }
-        if (!empty($json['error']['code'])) {
-            if (!is_numeric($json['error']['code'])) {
-                throw new ApiException('JSON data are invalid!');
+
+            if (!empty($json['data'])) {
+                $this->data = $json['data'];
+            } else {
+                $this->data = NULL;
             }
-            $this->errorCode = (int)$json['error']['code'];
-        }
-        if (!empty($json['error']['message'])) {
-            if (!is_string($json['error']['message'])) {
-                throw new ApiException('JSON data are invalid!');
+            if (!empty($json['error']['code'])) {
+                if (!is_numeric($json['error']['code'])) {
+                    throw new ApiException('JSON data are invalid!');
+                }
+                $this->errorCode = (int)$json['error']['code'];
+            } else {
+                $this->errorCode = NULL;
             }
-            $this->errorMessage = $json['error']['message'];
+            if (!empty($json['error']['message'])) {
+                if (!is_string($json['error']['message'])) {
+                    throw new ApiException('JSON data are invalid!');
+                }
+                $this->errorMessage = $json['error']['message'];
+            } else {
+                $this->errorMessage = NULL;
+            }
         }
     }
 
